@@ -1,0 +1,45 @@
+body{
+    width: 60%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid lightslategray;
+    border-radius: 20px;
+    flex-direction: column;
+}
+header{
+    width: 100%;
+}
+form{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+p{
+    width: 80%;
+}
+.champs{
+    width: 60%;
+    border: 1px gray solid;
+    border-radius: 5px;
+    height: 25px;
+}
+.bokotra{
+    width: 30%;
+    height: 30px;
+    background: lightseagreen;
+    border: 1px solid lightskyblue;
+    border-radius: 5px;
+}
