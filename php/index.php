@@ -8,27 +8,31 @@
 </head>
 <body>
     <div class="container">
-        <header class="entete">
-            <div id="marque">
-                <p id="logo"><a href="">CNTMAD</a></p>
-            </div>
-            <div id="menu">
-                <ul class="list">
-                    <li><a href="">Actualités</a></li>
-                    <li id="pdrop"><a href="">Espace Compte</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="connexion.php">Se connecter</a></li>
-                            <li><a href="inscription.php">S'inscrire</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="">Contact</a></li>
-                    <li><a href="">Blog</a></li>
-
-                </ul>
-            </div>
-        </header>
+        <?php
+            include 'src/View/header.php';
+        ?>
         <section class="principale">
-            
+            <div class="container_body">
+                <div class="head_body">
+
+                </div>
+                <div class="realcontent">
+                    <div id="menu_body">
+                        <h3>Menu de notre Site</h3>
+                        <ol>
+                            <li><a href="admin.php">Admin</a></li>
+                            <li><a href="membre.php">Membre</a></li>
+                            <li><a href="">Table de matières</a></li>
+                        </ol>
+                    </div>
+                    <article class="article">
+                        <h3>Titre de ce contenu</h3>
+                        <p>
+                            Ici on affiche notre article.
+                        </p>
+                    </article>
+                </div>
+            </div>
         </section>
         <footer id="pied">
 

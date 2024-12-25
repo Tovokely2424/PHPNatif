@@ -57,6 +57,10 @@
                             <div class="formgauche"><span>Confirm</span></div>
                             <div class="formdroite"><input type="password" name="password_confirm" id="password_confirm"></div>
                         </div>
+                        <div class="redir">
+                                <span>Vous avez déjà un compte?  </span>
+                                <a href="connexion.php">Se connecter</a>
+                        </div>
                         <div id="validation">
                             <input type="submit" value="S'inscrire" name="lance_inscription">
                         </div>

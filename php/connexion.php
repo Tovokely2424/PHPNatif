@@ -1,6 +1,6 @@
 <?php
     require_once 'config/bdd_connect.php';
-    if (iseet($_POST['lance_connexion'])) {
+    if (isset($_POST['lance_connexion'])) {
         //coce
     }
 
@@ -37,6 +37,10 @@
                         <div class="conteneurChamp">
                             <div class="formgauche"><span>Password</span></div>
                             <div class="formdroite"><input type="password" name="password" id="password"></div>
+                        </div>
+                        <div class="redir">
+                                <span>Vous n'avez pas encore de compte ? </span>
+                                <a href="inscription.php">S'inscrire</a>
                         </div>
                         <div id="validation">
                             <input type="submit" value="Se connecter" name="lance_connexion">

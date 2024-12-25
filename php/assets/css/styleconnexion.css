@@ -49,7 +49,7 @@ html{
 }
 
 .titre{
- color: rgb(20, 99, 119);;
+ color: rgb(20, 99, 119);
 }
 
 #form{
@@ -63,7 +63,7 @@ html{
 .champs{
     width: 100%;
 }
-.conteneurChamp{
+.conteneurChamp, .redir{
     width: 80%;
     display: flex;
     justify-content: space-between;
@@ -99,4 +99,14 @@ html{
     border: none;
     color: white;
     min-width: 40%;
+}
+.redir span{
+    color: grey;
+}
+.redir a{
+    text-decoration: none;
+    color: rgb(20, 99, 119);
+}
+@media screen {
+    
 }
