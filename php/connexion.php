@@ -18,7 +18,7 @@
     <div class="container">
         <header class="entete">
             <div id="marque">
-                <p id="logo"><a href="">CNTMAD</a></p>
+                <p id="logo"><a href="index.php">CNTMAD</a></p>
             </div>
             <div id="menu">
             </div>
@@ -37,6 +37,9 @@
                         <div class="conteneurChamp">
                             <div class="formgauche"><span>Password</span></div>
                             <div class="formdroite"><input type="password" name="password" id="password"></div>
+                        </div>
+                        <div class="conteneurChamp">
+                            <div id="check"><span>Rester connecté</span><input type="checkbox" name="checkStay" id="checkStay"></div>
                         </div>
                         <div class="redir">
                                 <span>Vous n'avez pas encore de compte ? </span>

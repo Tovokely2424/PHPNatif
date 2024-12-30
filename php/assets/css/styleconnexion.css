@@ -87,6 +87,21 @@ html{
     border: 1px solid lightgrey;
     border-radius: 5px;
 }
+#check{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#check{
+    color: grey;
+    
+}
+#checkStay{
+    width: 12px;
+    height: 12px;
+    border: 1px solid lightgrey;
+    margin-left: 20px;
+}
 #validation{
     margin-top: 15px;
     width: 100%;
@@ -107,6 +122,28 @@ html{
     text-decoration: none;
     color: rgb(20, 99, 119);
 }
-@media screen {
-    
+.error_message, .success_message{
+    min-height: 20px;
+    width: 80%;
+    font-size: small;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.error_message{    
+    color: #f10303;
+    background: #dabebe;
+}
+.success_message{
+    color: green;
+    background: rgb(165, 185, 165);
+}
+
+
+@media screen and (max-width : 650px ) {
+    #conteneur_form{
+        width: 90%;
+    }
 }
