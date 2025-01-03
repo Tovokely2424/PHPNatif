@@ -1,58 +1,78 @@
 <?php
     require 'config/bdd_connect.php';
+    require 'config/fonctions.php';
     $erreur = '';
+    $message_error = ''; // initialisation de la variable d'erreur
+    $message_success = ''; // initialisation de la variable de succès
+    
     if (isset($_POST['lance_inscription'])) {
-        if (empty($_POST['username']) || !preg_match('/[a-zA-Z0-9]+/', $_POST['username'])) {
-            if (empty($_POST['username'])) {
-                $message_error="Username ne peut pas être vide !";
-            }
-            elseif (!preg_match('/[a-zA-Z0-9]+/', $_POST['username'])) {
-                $message_error = "Seule les alphanumeriques sont autorisés dans le champs username!";
-            }
+        // Validation du champ 'username'
+        if (empty($_POST['username'])) {
+            $message_error = "Username ne peut pas être vide !";
+        } elseif (!preg_match('/[a-zA-Z0-9]+/', $_POST['username'])) {
+            $message_error = "Seules les alphanumériques sont autorisées dans le champ username!";
         }
-        elseif (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+
+        // Si une erreur a été trouvée dans le champ 'username', on arrête la validation et on n'affiche pas les autres erreurs
+        if (empty($message_error)) {
+            // Validation du champ 'email'
             if (empty($_POST['email'])) {
-                $message_error = "Champs mail requiert";
-            }
-            elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-                $message_error="Email invalide inséré";
-                
-            }
-        }
-        elseif (isset($_POST['email'])) {
+                $message_error = "Champs mail requis";
+            } elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                $message_error = "Email invalide inséré";
+            } else {
+                // Vérification si l'email existe déjà dans la base de données
                 $mail = $_POST['email'];
                 $query = "SELECT email FROM user WHERE email=:mail";
                 $requete = $db_conect->prepare($query);
                 $requete->bindParam(':mail', $mail, PDO::PARAM_STR);
                 $requete->execute();
                 $ligne = $requete->fetchAll(PDO::FETCH_ASSOC);
-                // $requete->bindvalue(':mail', $mail);
-                // $resultat=$requete->exec($requete);
                 if (count($ligne) > 0) {
-                    
-                    $message_error = "Il y a deja un compte lié à se mail.Cliquez <a href=\"reinitialiser_mdp.php\">ici</a> pour reinitialiser votre mot de passe.";
+                    $message_error = "Il y a déjà un compte lié à ce mail. Cliquez <a href=\"reinitialiser_mdp.php\">ici</a> pour réinitialiser votre mot de passe.";
                 }
-        }
-        elseif (empty($_POST['password']) || empty($_POST['password_confirm'])) {
-            $message_error = "Les champs pass et confirmation doivent être remplis";
-        }
-        elseif($_POST['password'] != $_POST['password_confirm']){
-            $message_error = "le mot de passe saisi est différent de confirmation";
+            }
         }
 
+        // Si aucune erreur n'a été trouvée pour username et email, on passe à la validation des mots de passe
+        if (empty($message_error)) {
+            // Validation du mot de passe et confirmation
+            if (empty($_POST['password']) || empty($_POST['password_confirm'])) {
+                $message_error = "Les champs mot de passe et confirmation doivent être remplis";
+            } elseif ($_POST['password'] != $_POST['password_confirm']) {
+                $message_error = "Le mot de passe saisi est différent de la confirmation";
+            }
+        }
 
-        if($message_error==""){
-            $message_success = "Felicitation, inscription réussie. Un mail vous a été envoyé. Veuillez le confirmer! ";
+        // Si aucune erreur, l'inscription est réussie
+        if (empty($message_error)) {
+            $token = token_random(25);
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $insertion = $db_conect->prepare("INSERT INTO user (username, email, cpassword, token) VALUES (:username, :email, :cpassword, :token)");
+            $insertion->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
+            $insertion->bindParam(':email', $_POST['email'], PDO::PARAM_STR);
+            $insertion->bindParam('cpassword', $password, PDO::PARAM_STR);
+            $insertion->bindvalue(':token', $token);
+            $result_insertion = $insertion->execute();
+            if ($result_insertion) {
+                $message_success = "Félicitations, inscription réussie. Un mail vous a été envoyé. Veuillez le confirmer!";
+                $lien = "<a href=\"activation_compte.php?token=".$token."&email=".$_POST['email']."\">valider ici</a>";
+            }
+            else{
+                $error_info = $insertion->errorInfo();
+                $message_error = "Erreur lors de l'insertion : " . $error_info[2];
+            }
         }
     }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
+    <title>Inscription</title>
     <link rel="stylesheet" href="assets/css/styleconnexion.css">
 </head>
 <body>
@@ -70,17 +90,22 @@
                     <h1>Inscription</h1>
                 </div>
                 <?php
-                if (isset($message_error)) {
+                if (!empty($message_error)) {
                     
                 ?>
                 <div class="error_message">
-                    <?php echo $message_error; ?>
+                    <?php 
+                        echo $message_error;
+                    ?>
                 </div>
-                <?php } elseif (isset($message_success)) {
+                <?php } elseif (!empty($message_success)) {
                     
                 ?>
                 <div class="success_message">
-                    <?php echo $message_success; ?>
+                    <?php 
+                        echo $message_success;
+                        echo $lien; 
+                    ?>
                 </div>
                 <?php } ?>
                 <div class="champs">
