@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +24,12 @@
                     <div id="menu_body">
                         <h3>Menu de notre Site</h3>
                         <ol>
+                            <?php
+                            if (isset($_SESSION['id'])) {
+                            ?>
+                            
                             <li><a href="admin.php">Admin</a></li>
+                           <?php } ?>
                             <li><a href="membre.php">Membre</a></li>
                             <li><a href="">Table de matières</a></li>
                         </ol>

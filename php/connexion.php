@@ -1,7 +1,37 @@
 <?php
     require_once 'config/bdd_connect.php';
+    require 'config/fonctions.php';
     if (isset($_POST['lance_connexion'])) {
-        //coce
+        $email=htmlspecialchars($_POST['email']);
+        $request = $db_conect->prepare("SELECT * FROM user WHERE email=:email");
+        $request->bindParam(':email', $email, PDO::PARAM_STR);
+        $request->execute();
+        $result = $request->fetchAll(PDO::FETCH_ASSOC);
+        if (count($result) > 0) {
+            $validation_ok = $result[0]['confirm'];
+            if ($validation_ok) {
+                $passwordIsOk = password_verify($_POST['password'],$result[0]['cpassword']);
+                if ($passwordIsOk) {
+                    session_start();
+                    $_SESSION['email']=$email;
+                    $_SESSION['id'] = $result[0]['id'];
+                    $_SESSION['username'] = $result['username'];
+                    header('Location:index.php');
+                }else{
+                    $message_error = "Mot de passe incorecte";
+                }
+            }else {
+                $message_error = "Votre compte n'a pas été confirmé! Verifier votre mail";
+                $token = token_random(25);
+                $requestMAJ = $db_conect->prepare("UPDATE user SET token=:token WHERE email=:email");
+                $requestMAJ->bindvalue(':token', $token);
+                $requestMAJ->bindvalue(':email', $email);
+                $requestMAJ->execute();
+                $lien="<a href=\"activation_compte.php?email=".$email."&token=".$token."\">Cliquez ici</a>";
+            }
+        }else {
+            $message_error = "On n'a pas trouver un email correspondant à ".$_POST['email']."dans notre base. Merci de vous reinscrire";
+        }
     }
 
 ?>
@@ -28,6 +58,19 @@
                 <div class="titre">
                     <h1>Connexion</h1>
                 </div>
+                <?php
+                if (!empty($message_error)) {
+                    
+                ?>
+                <div class="error_message">
+                    <?php 
+                        echo $message_error;
+                        if (isset($lien)) {
+                            echo $lien;
+                        }
+                    ?>
+                </div>
+                <?php } ?>
                 <div class="champs">
                     <form action="" id="form" method="POST">
                         <div class="conteneurChamp">

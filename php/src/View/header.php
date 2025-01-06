@@ -7,8 +7,17 @@
                     <li><a href="">Actualités</a></li>
                     <li id="pdrop"><a href="">Espace Compte</a>
                         <ul class="dropdown-menu">
+                        <?php
+                        if (isset($_SESSION['id'])) {
+                        
+                        ?>
+                            <li><a href="">Espace <?=$_SESSION['username'] ?? 'Compte'?></a></li>
+                            <li><a href="">Dashboard</a></li>
+                        <?php }else {
+                        ?>
                             <li><a href="connexion.php">Se connecter</a></li>
                             <li><a href="inscription.php">S'inscrire</a></li>
+                        <?php } ?>
                         </ul>
                     </li>
                     <li><a href="">Contact</a></li>
