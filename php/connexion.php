@@ -16,6 +16,21 @@
                     $_SESSION['email']=$email;
                     $_SESSION['id'] = $result[0]['id'];
                     $_SESSION['username'] = $result['username'];
+
+                    //if user check se souvenir de moi
+                    if (isset($_POST['checkStay'])) {
+                        setcookie('email', $_POST['email']);
+                        setcookie('password', $_POST['password']);
+                    }
+                    else {
+                        if(isset($_COOKIE['email'])){
+                            setcookie('email', "");
+                        }
+                        if (isset($_COOKIE['password'],)) {
+                            setcookie('password', "");
+                        }
+                    }
+
                     header('Location:index.php');
                 }else{
                     $message_error = "Mot de passe incorecte";
@@ -75,11 +90,11 @@
                     <form action="" id="form" method="POST">
                         <div class="conteneurChamp">
                             <div class="formgauche"><span>Email</span></div>
-                            <div class="formdroite"><input type="email" name="email" id="email"></div>
+                            <div class="formdroite"><input type="email" name="email" id="email" value="<?php if(isset($_COOKIE['email'])){ echo($_COOKIE['email']); }?>"></div>
                         </div>
                         <div class="conteneurChamp">
                             <div class="formgauche"><span>Password</span></div>
-                            <div class="formdroite"><input type="password" name="password" id="password"></div>
+                            <div class="formdroite"><input type="password" name="password" id="password" value="<?php if(isset($_COOKIE['password'])){ echo($_COOKIE['password']); }?>"></div>
                         </div>
                         <div class="conteneurChamp">
                             <div id="check"><span>Rester connecté</span><input type="checkbox" name="checkStay" id="checkStay"></div>
