@@ -1,0 +1,31 @@
+.champs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+form{
+    width: 75%;
+}
+#image{
+    width: 125px;
+    margin-left: 10px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid red;
+}
+
+@media screen and (max-width: 640px){
+    .champs{
+        flex-direction: column;
+        
+    }
+    form{
+        width: 100%;
+    }
+    #image{
+        width: 130px;
+        margin-top: 10px;
+        height: 130px;
+    }
+}

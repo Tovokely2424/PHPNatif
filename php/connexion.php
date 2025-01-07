@@ -15,7 +15,7 @@
                     session_start();
                     $_SESSION['email']=$email;
                     $_SESSION['id'] = $result[0]['id'];
-                    $_SESSION['username'] = $result['username'];
+                    $_SESSION['username'] = $result[0]['username'];
 
                     //if user check se souvenir de moi
                     if (isset($_POST['checkStay'])) {

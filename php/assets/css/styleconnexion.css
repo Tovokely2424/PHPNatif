@@ -140,6 +140,11 @@ html{
     color: green;
     background: rgb(165, 185, 165);
 }
+hr{
+    width: 60%;
+    border: 1px solid lightgrey;
+
+}
 
 
 @media screen and (max-width : 650px ) {
