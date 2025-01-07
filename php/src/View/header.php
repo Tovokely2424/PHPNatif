@@ -12,7 +12,7 @@
                         if (isset($_SESSION['id'])) {
                         
                         ?>
-                            <li><a href="">Espace <?=$_SESSION['username'] ?? 'Compte'?></a></li>
+                            <li><a href="profile.php">Espace <?=$_SESSION['username'] ?? 'Compte'?></a></li>
                             <li><a href="">Dashboard</a></li>
                             <li><a href="deconnexion.php">Deconnexion</a></li>
                         <?php }else {
