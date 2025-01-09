@@ -16,6 +16,8 @@
                     $_SESSION['email']=$email;
                     $_SESSION['id'] = $result[0]['id'];
                     $_SESSION['username'] = $result[0]['username'];
+                    $_SESSION['nom'] = $result[0]['nom'];
+                    $_SESSION['prenom'] = $result[0]['prenom'];
 
                     //if user check se souvenir de moi
                     if (isset($_POST['checkStay'])) {
@@ -102,6 +104,10 @@
                         <div class="redir">
                                 <span>Vous n'avez pas encore de compte ? </span>
                                 <a href="inscription.php">S'inscrire</a>
+                        </div>
+                        <div class="redir">
+                                <span>Mot de passe oublié? </span>
+                                <a href="mail_a_reinitialiser.php">Cliquer ici</a>
                         </div>
                         <div id="validation">
                             <input type="submit" value="Se connecter" name="lance_connexion">

@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require 'config/bdd_connect.php';
     $resultat = $db_conect -> query("SELECT * FROM clients ORDER BY nom ASC");
     $nombre_client = $resultat->rowCount();

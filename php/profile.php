@@ -27,7 +27,7 @@
         <section class="principale">
             <div id="conteneur_form">
                 <div class="titre">
-                    <h1><?php echo $_SESSION['username'] ?? 'Profile'; ?></h1>
+                    <h1><?php echo $_SESSION['nom']." ".$_SESSION['prenom'] ?? 'Profile'; ?></h1>
                 </div>
                 <hr>
                 <div class="champs">
@@ -39,14 +39,35 @@
                             <div class="formgauche"><span>Utilisateur</span></div>
                             <div class="formdroite"><span><?php echo $_SESSION['username'] ?? 'Erreur'; ?></span></div>
                         </div>
+                        <?php 
+                        if(!empty($_SESSION['nom'])){
+                        ?>
+                        <div class="conteneurChamp">
+                            <div class="formgauche"><span>Nom</span></div>
+                            <div class="formdroite"><span><?php echo $_SESSION['nom'] ?? 'Erreur' ?></span></div>
+                        </div>
+                        <?php
+                        }
+                        ?>
+                        <?php 
+                        if(!empty($_SESSION['prenom'])){
+                        ?>
+                        <div class="conteneurChamp">
+                            <div class="formgauche"><span>Prenom</span></div>
+                            <div class="formdroite"><span><?php echo $_SESSION['prenom'] ?? 'Erreur' ?></span></div>
+                        </div>
+                        <?php
+                        }
+                        ?>
                         <div class="conteneurChamp">
                             <div class="formgauche"><span>Email</span></div>
                             <div class="formdroite"><span><?php echo $_SESSION['email'] ?? 'Erreur' ?></span></div>
                         </div>
+                        
                         <div class="redir">
                                 <a href="deconnexion.php">Se deconnecter</a>
                                 <a href="index.php">acceuil</a>
-                                <a href="modification_profile">Modifier</a>
+                                <a href="modif_client.php?id_a_modifier=<?=$_SESSION['id']."&email=".$_SESSION['email']?>">Modifier</a>
                         </div>
                     </form>
                 </div>
